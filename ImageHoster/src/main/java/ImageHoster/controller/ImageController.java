@@ -95,12 +95,26 @@ public class ImageController {
     //The method first needs to convert the list of all the tags to a string containing all the tags separated by a comma and then add this string in a Model type object
     //This string is then displayed by 'edit.html' file as previous tags of an image
     @RequestMapping(value = "/editImage")
-    public String editImage(@RequestParam("imageId") Integer imageId, Model model) {
+    public String editImage(@RequestParam("imageId") Integer imageId, Model model, HttpSession session) {
+
+        User user = (User) session.getAttribute("loggeduser");  //Getting details of the logged in user from the http session.
         Image image = imageService.getImage(imageId);
 
         String tags = convertTagsToString(image.getTags());
         model.addAttribute("image", image);
         model.addAttribute("tags", tags);
+
+        /*
+           Adding the if condition block to check if the original owner of the image is editing the image or not.
+           If the logged in user is not the original owner of the image, an error message is displayed.
+         */
+        if (!image.getUser().getId().equals(user.getId())) {
+            String error = "Only the owner of the image can edit the image";
+            model.addAttribute("editError", error);
+            model.addAttribute("tags", image.getTags());
+            return "images/image";
+        }
+
         return "images/edit";
     }
 
@@ -143,7 +157,22 @@ public class ImageController {
     //The method calls the deleteImage() method in the business logic passing the id of the image to be deleted
     //Looks for a controller method with request mapping of type '/images'
     @RequestMapping(value = "/deleteImage", method = RequestMethod.DELETE)
-    public String deleteImageSubmit(@RequestParam(name = "imageId") Integer imageId) {
+    public String deleteImageSubmit(@RequestParam(name = "imageId") Integer imageId, HttpSession session, Model model) {
+
+        User user = (User) session.getAttribute("loggeduser");  //Getting details of the logged in user from the http session.
+        Image image = imageService.getImage(imageId);
+
+        /*
+           Adding the if condition block to check if the original owner of the image is deleting the image or not.
+           If the logged in user is not the original owner of the image, an error message is displayed.
+         */
+        if (!image.getUser().getId().equals(user.getId())) {
+            String error = "Only the owner of the image can delete the image";
+            model.addAttribute("editError", error);
+            model.addAttribute("tags", image.getTags());
+            return "images/image";
+        }
+
         imageService.deleteImage(imageId);
         return "redirect:/images";
     }
