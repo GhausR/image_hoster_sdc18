@@ -24,7 +24,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c332855e-1472-4d27-ab03-26b600a6ba8c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ImageHoster/service/ImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ImageHoster/service/ImageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ImageHoster/config/JpaConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ImageHoster/config/JpaConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ImageHoster/controller/ImageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ImageHoster/controller/ImageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/images/image.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/images/image.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +91,17 @@
     <property name="project.structure.side.proportion" value="0.6643678" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ImageHosterApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="ImageHoster" />
       <extension name="coverage">
@@ -140,6 +154,7 @@
       <workItem from="1609180530121" duration="1299000" />
       <workItem from="1609181861694" duration="854000" />
       <workItem from="1609182762995" duration="350000" />
+      <workItem from="1609183295605" duration="2015000" />
     </task>
     <servers />
   </component>
@@ -157,6 +172,40 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1340" height="648" key="GridCell.Tab.0.bottom" timestamp="1609185311704">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1340" height="648" key="GridCell.Tab.0.bottom/0.0.3840.2160@0.0.3840.2160" timestamp="1609185311704" />
+    <state width="1340" height="648" key="GridCell.Tab.0.center" timestamp="1609185311704">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1340" height="648" key="GridCell.Tab.0.center/0.0.3840.2160@0.0.3840.2160" timestamp="1609185311704" />
+    <state width="1340" height="648" key="GridCell.Tab.0.left" timestamp="1609185311704">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1340" height="648" key="GridCell.Tab.0.left/0.0.3840.2160@0.0.3840.2160" timestamp="1609185311704" />
+    <state width="1340" height="648" key="GridCell.Tab.0.right" timestamp="1609185311704">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1340" height="648" key="GridCell.Tab.0.right/0.0.3840.2160@0.0.3840.2160" timestamp="1609185311704" />
+    <state width="1340" height="648" key="GridCell.Tab.1.bottom" timestamp="1609185311705">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1340" height="648" key="GridCell.Tab.1.bottom/0.0.3840.2160@0.0.3840.2160" timestamp="1609185311705" />
+    <state width="1340" height="648" key="GridCell.Tab.1.center" timestamp="1609185311705">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1340" height="648" key="GridCell.Tab.1.center/0.0.3840.2160@0.0.3840.2160" timestamp="1609185311705" />
+    <state width="1340" height="648" key="GridCell.Tab.1.left" timestamp="1609185311704">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1340" height="648" key="GridCell.Tab.1.left/0.0.3840.2160@0.0.3840.2160" timestamp="1609185311704" />
+    <state width="1340" height="648" key="GridCell.Tab.1.right" timestamp="1609185311705">
+      <screen x="0" y="0" width="3840" height="2160" />
+    </state>
+    <state width="1340" height="648" key="GridCell.Tab.1.right/0.0.3840.2160@0.0.3840.2160" timestamp="1609185311705" />
   </component>
   <component name="masterDetails">
     <states>

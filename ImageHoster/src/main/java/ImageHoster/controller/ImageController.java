@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class ImageController {
         Image image = imageService.getImage(imageId);
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
-        model.addAttribute("comments", imageService.getImag)
+        model.addAttribute("comments", imageService.getImageComments(String.valueOf(imageId)));
         return "images/image";
     }
 
@@ -118,6 +119,8 @@ public class ImageController {
             return "images/image";
         }
 
+        model.addAttribute("comments", imageService.getImageComments(Integer.toString(imageId)));
+
         return "images/edit";
     }
 
@@ -176,6 +179,7 @@ public class ImageController {
             return "images/image";
         }
 
+        model.addAttribute("comments", imageService.getImageComments(Integer.toString(imageId)));
         imageService.deleteImage(imageId);
         return "redirect:/images";
     }
@@ -221,5 +225,23 @@ public class ImageController {
         tagString.append(lastTag.getName());
 
         return tagString.toString();
+    }
+
+    // This method is called when the user creates a comment
+    // It add the user and image fields and then sends it off the service layer for persistence.
+    @RequestMapping(value = "/image/{imageId}/{imageTitle}/comments", method = RequestMethod.POST)
+    public String addImageComment(@PathVariable("imageTitle") String title, @PathVariable("imageId") Integer id, @RequestParam("comment") String comment, Comment newComment, HttpSession session, RedirectAttributes redirectAttrs) throws IOException {
+        User user = (User) session.getAttribute("loggeduser");
+        newComment.setUser(user);
+        newComment.setText(comment);
+        newComment.setCreatedDate(LocalDate.now());
+        newComment.setImage(imageService.getImage(id));
+
+        imageService.addImageComment(newComment);
+
+        redirectAttrs.addAttribute("id", id).addFlashAttribute("id", id);
+        redirectAttrs.addAttribute("title", title).addFlashAttribute("title", title);
+
+        return "redirect:/images/{id}/{title}";
     }
 }
