@@ -22,7 +22,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="07355524-3bbd-442a-bf4c-37e037246dac" name="Default Changelist" comment="" />
+    <list default="true" id="07355524-3bbd-442a-bf4c-37e037246dac" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/image_hoster_sdc18.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/image_hoster_sdc18.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ImageHoster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ImageHoster/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,17 +55,6 @@
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ImageHosterApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="ImageHoster" />
       <extension name="coverage">
@@ -90,6 +83,7 @@
       <option name="presentableId" value="Default" />
       <updated>1608574644753</updated>
       <workItem from="1608574646264" duration="786000" />
+      <workItem from="1609179701481" duration="35000" />
     </task>
     <servers />
   </component>
@@ -106,5 +100,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
