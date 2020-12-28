@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
-import java.time.LocalDate;
 
 @Controller
 public class ImageController {
@@ -52,11 +50,11 @@ public class ImageController {
     //Here a list of tags is added in the Model type object
     //this list is then sent to 'images/image.html' file and the tags are displayed
     @RequestMapping("/images/{id}/{title}")
-    public String showImage(@PathVariable("title") String title, @PathVariable("id") int imageId, Model model) {
-        Image image = imageService.getImage(imageId);
+    public String showImage (@PathVariable("title") String title, @PathVariable("id") int imageId, Model model) {
+        Image image = imageService.getImage (imageId);
         model.addAttribute("image", image);
-        model.addAttribute("tags", image.getTags());
-        model.addAttribute("comments", imageService.getImageComments(String.valueOf(imageId)));
+        model.addAttribute("tags", image.getTags ());
+        model.addAttribute("comments", image.getComments ());
         return "images/image";
     }
 
@@ -101,27 +99,27 @@ public class ImageController {
     @RequestMapping(value = "/editImage")
     public String editImage(@RequestParam("imageId") Integer imageId, Model model, HttpSession session) {
 
-        User user = (User) session.getAttribute("loggeduser");  //Getting details of the logged in user from the http session.
-        Image image = imageService.getImage(imageId);
-
-        String tags = convertTagsToString(image.getTags());
-        model.addAttribute("image", image);
-        model.addAttribute("tags", tags);
+        Image image = imageService.getImage (imageId);
+        User requestedUser = image.getUser ();
+        User user = (User) session.getAttribute ("loggeduser"); //Getting details of the logged in user from the http session.
 
         /*
            Adding the if condition block to check if the original owner of the image is editing the image or not.
            If the logged in user is not the original owner of the image, an error message is displayed.
          */
-        if (!image.getUser().getId().equals(user.getId())) {
-            String error = "Only the owner of the image can edit the image";
-            model.addAttribute("editError", error);
-            model.addAttribute("tags", image.getTags());
-            return "images/image";
+        if (requestedUser.getId ().equals (user.getId())) {
+            String tags = convertTagsToString(image.getTags());
+            model.addAttribute ("image", image);
+            model.addAttribute ("tags", tags);
+            return "images/edit";
         }
-
-        model.addAttribute("comments", imageService.getImageComments(Integer.toString(imageId)));
-
-        return "images/edit";
+        else {
+            String error = "Only the owner of the image can edit the image";
+            model.addAttribute ("editError", error);
+            model.addAttribute ("image", image);
+            model.addAttribute ("tags", image.getTags());
+            return "/images/image";
+        }
     }
 
     //This controller method is called when the request pattern is of type 'images/edit' and also the incoming request is of PUT type
@@ -165,23 +163,26 @@ public class ImageController {
     @RequestMapping(value = "/deleteImage", method = RequestMethod.DELETE)
     public String deleteImageSubmit(@RequestParam(name = "imageId") Integer imageId, HttpSession session, Model model) {
 
-        User user = (User) session.getAttribute("loggeduser");  //Getting details of the logged in user from the http session.
-        Image image = imageService.getImage(imageId);
+        Image image = imageService.getImage (imageId);
+        User requestedUser = image.getUser ();
+        User user = (User) session.getAttribute("loggeduser"); //Getting details of the logged in user from the http session.
 
         /*
            Adding the if condition block to check if the original owner of the image is deleting the image or not.
            If the logged in user is not the original owner of the image, an error message is displayed.
          */
-        if (!image.getUser().getId().equals(user.getId())) {
-            String error = "Only the owner of the image can delete the image";
-            model.addAttribute("editError", error);
-            model.addAttribute("tags", image.getTags());
-            return "images/image";
+        if (requestedUser.getId ().equals(user.getId ())) {
+            imageService.deleteImage (imageId);
+            return "redirect:/images";
         }
-
-        model.addAttribute("comments", imageService.getImageComments(Integer.toString(imageId)));
-        imageService.deleteImage(imageId);
-        return "redirect:/images";
+        else {
+            String error = "Only the owner of the image can delete the image";
+            model.addAttribute ("editError", error);
+            model.addAttribute ("deleteError", error);
+            model.addAttribute ("image", image);
+            model.addAttribute ("tags", image.getTags());
+            return "/images/image";
+        }
     }
 
 
@@ -227,21 +228,4 @@ public class ImageController {
         return tagString.toString();
     }
 
-    // This method is called when the user creates a comment
-    // It add the user and image fields and then sends it off the service layer for persistence.
-    @RequestMapping(value = "/image/{imageId}/{imageTitle}/comments", method = RequestMethod.POST)
-    public String addImageComment(@PathVariable("imageTitle") String title, @PathVariable("imageId") Integer id, @RequestParam("comment") String comment, Comment newComment, HttpSession session, RedirectAttributes redirectAttrs) throws IOException {
-        User user = (User) session.getAttribute("loggeduser");
-        newComment.setUser(user);
-        newComment.setText(comment);
-        newComment.setCreatedDate(LocalDate.now());
-        newComment.setImage(imageService.getImage(id));
-
-        imageService.addImageComment(newComment);
-
-        redirectAttrs.addAttribute("id", id).addFlashAttribute("id", id);
-        redirectAttrs.addAttribute("title", title).addFlashAttribute("title", title);
-
-        return "redirect:/images/{id}/{title}";
-    }
 }

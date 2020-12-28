@@ -1,5 +1,6 @@
 package ImageHoster.model;
 
+import org.springframework.context.annotation.Primary;
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -19,33 +20,44 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     //@Column annotation specifies that the attribute will be mapped to the column in the database.
     //Here the column name is explicitly mentioned as 'id'
-    @Column(name = "id")
+    @Column (name = "id")
     private Integer id;
 
     // Text is a Postgres specific column type that allows you to save text based data that is longer than 256 characters.
-    @Column(columnDefinition = "TEXT")
+    @Column (columnDefinition = "TEXT")
     private String text;
 
-    @Column(name = "createdDate")
+    @Column (name = "createdDate")
     private LocalDate createdDate;
 
     /*The 'comments' table is mapped to the 'users' table with Many:One mapping.
      One comment can have only one user (owner) but one user can make multiple comments.
      FetchType is EAGER.
      */
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 
     //Below annotation indicates that the name of the column in 'comments' table referring the primary key in 'users' table will be 'user_id'
-    @JoinColumn(name = "user_id")
+    @JoinColumn (name = "users_id")
     private User user;
 
     /*The 'comments' table is mapped to the 'images' table with Many:One mapping.
      One comment can be mapped to only one image but one image can make multiple comments.
      FetchType is EAGER.
      */
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "image_id")
+    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn (name = "images_id")
     private Image image;
+
+    public Comment() {
+    }
+
+    public Comment(int id, String text, LocalDate createdDate, User user, ImageHoster.model.Image image) {
+        this.id = id;
+        this.text = text;
+        this.createdDate = createdDate;
+        this.user = user;
+        this.image = image;
+    }
 
     public Integer getId() {
         return id;
@@ -83,7 +95,7 @@ public class Comment {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(ImageHoster.model.Image image) {
         this.image = image;
     }
 

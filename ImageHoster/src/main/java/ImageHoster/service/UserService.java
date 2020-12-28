@@ -4,9 +4,13 @@ import ImageHoster.model.User;
 import ImageHoster.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
+
+    //Regular expression to check password strength.
+    public static final String PASSWORD_REGEX = "((?=.*\\d)(?=.*[A-Za-z])(?=.*[@#$%]).{3,20})";
 
     @Autowired
     private UserRepository userRepository;
@@ -23,13 +27,19 @@ public class UserService {
     //Calls the checkUser() method in the Repository passing the username and password which checks the username and password in the database
     //The Repository returns User type object if user with entered username and password exists in the database
     //Else returns null
-    public User login(User user) {
-        User existingUser = userRepository.checkUser(user.getUsername(), user.getPassword());
+    public User login (User user) {
+        User existingUser = userRepository.checkUser (user.getUsername (), user.getPassword ());
         if (existingUser != null) {
             return existingUser;
-        } else {
+        }
+        else {
             return null;
         }
+    }
+
+    //This method checks if the password meets the strength requirements or not.
+    public boolean checkPassword (String password) {
+        return (Pattern.compile (PASSWORD_REGEX)).matcher (password).matches ();
     }
 
 }

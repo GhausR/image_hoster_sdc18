@@ -1,13 +1,10 @@
 package ImageHoster.service;
 
 import ImageHoster.model.Image;
-import ImageHoster.model.Comment;
 import ImageHoster.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,16 +42,6 @@ public class ImageService {
     //The method calls the deleteImage() method in the Repository and passes the Image id of the image to be deleted in the database
     public void deleteImage(Integer imageId) {
         imageRepository.deleteImage(imageId);
-    }
-
-    //This method calls the addImageComment method from the ImageRepository class, and then passes the comment to be added to the image.
-    public void addImageComment (Comment comment) {
-        imageRepository.addImageComment (comment);
-    }
-
-    //This method calls the getImageComments method from the ImageRepository class, and then  passes the id of the image for the comments are to be fetched.
-    public List<Comment> getImageComments (String imageId) {
-        return imageRepository.getImageComments (imageId);
     }
 
 }
