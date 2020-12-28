@@ -47,4 +47,14 @@ public class ImageService {
         imageRepository.deleteImage(imageId);
     }
 
+    //This method calls the addImageComment method from the ImageRepository class, and then passes the comment to be added to the image.
+    public void addImageComment (Comment comment) {
+        imageRepository.addImageComment (comment);
+    }
+
+    //This method calls the getImageComments method from the ImageRepository class, and then  passes the id of the image for the comments are to be fetched.
+    public List<Comment> getImageComments (String imageId) {
+        return imageRepository.getImageComments (imageId);
+    }
+
 }
